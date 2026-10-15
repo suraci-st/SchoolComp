@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Account</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <style>
+        .account-grid {
+            display: grid;
+            grid-template-columns: 300px 580px;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            align-items: start
+        }
+
+        .profile {
+            text-align: center
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            background: lightgreen;
+            border: 3px solid darkgreen;
+            border-radius: 50%;
+            line-height: 120px;
+            font: bold 40px 'Montserrat', sans-serif;
+            color: darkgreen
+        }
+
+        .profile p {
+            color: #555;
+            margin: 5px 0
+        }
+
+        .profile .btn {
+            margin-top: 20px
+        }
+
+        .loan {
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            margin-top: 20px
+        }
+
+        .loan:first-of-type {
+            border: 0;
+            padding: 0;
+            margin: 0
+        }
+
+        .loan-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px
+        }
+
+        .loan-info div {
+            text-align: center
+        }
+
+        .loan-info .label {
+            color: #555;
+            font-size: 14px;
+            margin: 0
+        }
+
+        .loan-info .value {
+            font: bold 20px 'Montserrat', sans-serif;
+            color: #088842;
+            margin: 4px 0 0
+        }
+
+        .bar {
+            width: 100%;
+            height: 20px;
+            background: #ddd;
+            border-radius: 10px
+        }
+
+        .bar-fill {
+            height: 20px;
+            background: #0eb85a;
+            border-radius: 10px
+        }
+
+        .status {
+            color: #088842;
+            font-weight: bold
+        }
+
+        .status.pending {
+            color: #d98c00
+        }
+
+        .empty {
+            text-align: center;
+            color: #555
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Evergreen Credit</h1>
+    </header>
+
+    <div class="box">
+        <nav>
+            <a href="Final_Main_page.html">Home</a>
+            <a href="Application.html">Apply for a Loan</a>
+            <a href="Account.html" class="active">My Account</a>
+            <a href="Table.html">Loan options</a>
+            <a href="Contact.html">Contact Us</a>
+            <a href="About.html">About Us</a>
+            <a href="Login.html" class="nav-right">Login/Sign-up</a>
+        </nav>
+    </div>
+
+    <div class="page-title">
+        <h2>My Account</h2>
+        <p id="welcome"></p>
+    </div>
+
+    <div class="account-grid">
+        <div class="card profile">
+            <div class="profile-pic" id="initials"></div>
+            <h3 id="p-name"></h3>
+            <p id="p-email"></p>
+            <p id="p-phone"></p>
+            <p id="p-since"></p>
+            <a href="#" class="btn">Edit Profile</a>
+        </div>
+        <div class="card">
+            <h3>Active Loans</h3>
+            <div id="loans"></div>
+        </div>
+    </div>
+
+    <div id="pending-wrap" style="display:none">
+        <h2 class="section-title">Pending Applications</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Applied</th>
+                    <th>Loan Type</th>
+                    <th>Amount</th>
+                    <th>Term</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="pending"></tbody>
+        </table>
+    </div>
+
+    <h2 class="section-title">Payment History</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Reference No.</th>
+                <th>Loan</th>
+                <th>Amount</th>
+                <th>Method</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="history"></tbody>
+    </table>
+
+    <footer>
+        <p>
+            <a href="Final_Main_page.html">Home</a>
+            <a href="About.html">About Us</a>
+            <a href="Contact.html">Contact Us</a>
+        </p>
+        <p>Email: support@evergreencredit.com | Phone: (02) 1234-5678</p>
+        <p>&copy; 2026 Evergreen Credit. All rights reserved.</p>
+    </footer>
+
+
+</body>
+<script>
+    const $ = id => document.getElementById(id);
+    const cap = t => t[0].toUpperCase() + t.slice(1);
+    // Use logged-in user or fall back to demo guest info
+    const u = user || { first: 'Demo', last: 'User', email: 'demo@evergreencredit.com', phone: '09171234567', since: new Date().toISOString() };
+    $('welcome').textContent = 'Welcome' + (user ? ' back' : '') + ', ' + u.first + '! Track your loans and payments here.';
+    $('initials').textContent = (u.first[0] + u.last[0]).toUpperCase();
+    $('p-name').textContent = u.first + ' ' + u.last;
+    $('p-email').textContent = u.email;
+    $('p-phone').textContent = u.phone;
+    $('p-since').textContent = 'Member since: ' + new Date(u.since).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+
+    function render() {
+        const apps = processApps();
+        const active = apps.filter(a => a.status === 'active');
+        const pending = apps.filter(a => a.status === 'pending' && a.method);
+        const unfinished = apps.filter(a => a.status === 'pending' && !a.method);
+
+        $('loans').innerHTML = (active.length ? active.map(a => {
+            const due = new Date(a.approvedAt); due.setMonth(due.getMonth() + a.paid + 1);
+            const done = a.paid >= a.term;
+            return `<div class="loan">
+                <p class="label" style="margin:0 0 10px"><b>${cap(a.type)} Loan</b> &middot; paid via ${a.method}</p>
+                <div class="loan-info">
+                    <div><p class="label">Loan Amount</p><p class="value">${peso(a.amount)}</p></div>
+                    <div><p class="label">Monthly Payment</p><p class="value">${peso(a.monthly)}</p></div>
+                    <div><p class="label">Next Due Date</p><p class="value">${done ? 'Paid off' : due.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p></div>
+                </div>
+                <p>Paid: ${a.paid} of ${a.term} months</p>
+                <div class="bar"><div class="bar-fill" style="width:${a.paid / a.term * 100}%"></div></div>
+                ${done ? '' : `<br><a href="#" class="btn" data-pay="${a.id}">Make a Payment</a>`}
+            </div>`;
+        }).join('') : `<div class="empty"><p>You have no active loans yet.</p>
+            <p>${pending.length ? 'Your application is under review. It will appear here once approved.' : 'Ready to get started?'}</p>
+            ${pending.length ? '' : '<a href="Application.html" class="btn">Apply for a Loan</a>'}</div>`);
+
+        $('pending-wrap').style.display = pending.length + unfinished.length ? '' : 'none';
+        $('pending').innerHTML = pending.map(a => `<tr><td>${fmtDate(a.appliedAt)}</td><td>${cap(a.type)} Loan</td><td>${peso(a.amount)}</td><td>${a.term} months</td><td class="status pending">Under review</td></tr>`).join('')
+            + unfinished.map(a => `<tr><td>${fmtDate(a.appliedAt)}</td><td>${cap(a.type)} Loan</td><td>${peso(a.amount)}</td><td>${a.term} months</td><td><a href="Payment.html?id=${a.id}" class="status pending">Choose payment option</a></td></tr>`).join('');
+
+        const pays = [].concat(...active.map(a => a.payments.map(p => Object.assign({ loan: cap(a.type) }, p)))).sort((x, y) => new Date(y.date) - new Date(x.date));
+        $('history').innerHTML = pays.length
+            ? pays.map(p => `<tr><td>${fmtDate(p.date)}</td><td>${p.ref}</td><td>${p.loan}</td><td>${peso(p.amount)}</td><td>${p.method}</td><td class="status">Paid</td></tr>`).join('')
+            : '<tr><td colspan="6">No payments yet.</td></tr>';
+
+        document.querySelectorAll('[data-pay]').forEach(b => b.onclick = e => {
+            e.preventDefault();
+            const all = getApps(), a = all.find(x => x.id === b.dataset.pay);
+            a.paid++;
+            a.payments.push({ date: new Date().toISOString(), ref: 'REF-' + Math.floor(10000 + Math.random() * 89999), amount: a.monthly, method: a.method });
+            saveApps(all); render();
+        });
+    }
+    render();
+    setInterval(render, 3000);   // picks up approvals automatically
+</script>
+
+</html>

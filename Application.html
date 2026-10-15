@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Apply for a Loan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <h1>Evergreen Credit</h1>
+    </header>
+
+    <div class="box">
+        <nav>
+            <a href="Final_Main_page.html">Home</a>
+            <a href="Application.html" class="active">Apply for a Loan</a>
+            <a href="Account.html">My Account</a>
+            <a href="Table.html">Loan options</a>
+            <a href="Contact.html">Contact Us</a>
+            <a href="About.html">About Us</a>
+            <a href="Login.html" class="nav-right">Login/Sign-up</a>
+        </nav>
+    </div>
+
+    <div class="page-title">
+        <h2>Apply for a Loan</h2>
+        <p>Fill out the form below and we'll get back to you within 24 hours.</p>
+        <button id="demo-btn" onclick="fillDemo()" style="margin-top:12px; padding:9px 22px; background:#f5f5f5; color:#088842; border:2px solid #088842; border-radius:4px; font-family:'Montserrat',sans-serif; font-size:14px; font-weight:bold; cursor:pointer; transition:background 0.2s,color 0.2s;" onmouseover="this.style.background='#088842';this.style.color='#fff'" onmouseout="this.style.background='#f5f5f5';this.style.color='#088842'">✦ Use Demo Data</button>
+    </div>
+
+    <div class="form-box card">
+        <form id="apply-form">
+
+            <h3>Personal Information</h3>
+
+            <div class="form-row">
+                <div>
+                    <label for="fname">First Name</label>
+                    <input type="text" id="fname" name="fname" required>
+                </div>
+                <div>
+                    <label for="lname">Last Name</label>
+                    <input type="text" id="lname" name="lname" required>
+                </div>
+            </div>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="09XX XXX XXXX" required>
+
+            <label for="address">Home Address</label>
+            <input type="text" id="address" name="address" required>
+
+            <div class="form-row">
+                <div>
+                    <label for="birthday">Birthday</label>
+                    <input type="date" id="birthday" name="birthday" required>
+                </div>
+                <div>
+                    <label for="income">Monthly Income (PHP)</label>
+                    <input type="number" id="income" name="income" min="0" required>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 35px;">Loan Details</h3>
+
+            <label for="loantype">Type of Loan</label>
+            <select id="loantype" name="loantype" required>
+                <option value="">-- Select a loan --</option>
+                <option value="personal">Personal Loan</option>
+                <option value="salary">Salary Loan</option>
+                <option value="business">Business Loan</option>
+                <option value="car">Car Loan</option>
+                <option value="home">Home Loan</option>
+            </select>
+
+            <div class="form-row">
+                <div>
+                    <label for="amount">Loan Amount (PHP)</label>
+                    <input type="number" id="amount" name="amount" min="5000" step="1000" required>
+                </div>
+                <div>
+                    <label for="term">Payment Term</label>
+                    <select id="term" name="term" required>
+                        <option value="6">6 months</option>
+                        <option value="12">12 months</option>
+                        <option value="24">24 months</option>
+                        <option value="36">36 months</option>
+                    </select>
+                </div>
+            </div>
+
+            <label for="purpose">Purpose of Loan</label>
+            <textarea id="purpose" name="purpose" placeholder="Tell us what the loan is for..."></textarea>
+
+            <div class="checkbox">
+                <input type="checkbox" id="agree" name="agree" required>
+                <label for="agree">I agree to the terms and conditions.</label>
+            </div>
+
+            <button type="submit" class="btn">Submit Application</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>
+            <a href="Final_Main_page.html">Home</a>
+            <a href="About.html">About Us</a>
+            <a href="Contact.html">Contact Us</a>
+        </p>
+        <p>Email: support@evergreencredit.com | Phone: (02) 1234-5678</p>
+        <p>&copy; 2026 Evergreen Credit. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const $ = id => document.getElementById(id);
+
+        // Pre-fill from logged-in account if available, otherwise leave blank
+        if (user) {
+            $('fname').value = user.first;
+            $('lname').value = user.last;
+            $('email').value = user.email;
+            $('phone').value = user.phone;
+        }
+
+        $('apply-form').onsubmit = e => {
+            e.preventDefault();
+            const type = $('loantype').value, amount = +$('amount').value, term = +$('term').value;
+            const apps = getApps(), id = 'L' + Date.now();
+            apps.push({
+                id, status: 'pending', type, amount, term, rate: RATES[type], purpose: $('purpose').value,
+                monthly: monthly(amount, RATES[type], term), appliedAt: new Date().toISOString(),
+                method: null, paid: 0, payments: []
+            });
+            saveApps(apps);
+            location.href = 'Payment.html?id=' + id;
+        };
+
+        function fillDemo() {
+            $('fname').value    = 'Juan';
+            $('lname').value    = 'dela Cruz';
+            $('email').value    = 'juan.delacruz@email.com';
+            $('phone').value    = '09171234567';
+            $('address').value  = '123 Mabini St, Ermita, Manila';
+            $('birthday').value = '1990-06-15';
+            $('income').value   = '45000';
+            $('loantype').value = 'personal';
+            $('amount').value   = '50000';
+            $('term').value     = '12';
+            $('purpose').value  = 'Home renovation and emergency fund.';
+            $('agree').checked  = true;
+            const btn = document.getElementById('demo-btn');
+            if (btn) {
+                btn.textContent = '✔ Demo Data Loaded!';
+                btn.style.background = '#088842';
+                btn.style.color = '#fff';
+                setTimeout(() => {
+                    btn.textContent = '✦ Use Demo Data';
+                    btn.style.background = '#f5f5f5';
+                    btn.style.color = '#088842';
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+
+</html>

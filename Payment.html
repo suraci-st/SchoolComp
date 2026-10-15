@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Options</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <style>.opt{display:flex;align-items:center;gap:12px;border:2px solid #ccc;border-radius:8px;padding:14px;margin-top:12px;cursor:pointer;font-weight:normal}.opt:has(input:checked){border-color:#0eb85a;background:#eaf7ef}.opt input{width:auto}.sum{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eee}</style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Evergreen Credit</h1>
+    </header>
+
+    <div class="box">
+        <nav>
+            <a href="Final_Main_page.html">Home</a>
+            <a href="Application.html">Apply for a Loan</a>
+            <a href="Account.html">My Account</a>
+            <a href="Table.html">Loan options</a>
+            <a href="Contact.html">Contact Us</a>
+            <a href="About.html">About Us</a>
+            <a href="Login.html" class="nav-right">Login/Sign-up</a>
+        </nav>
+    </div>
+
+    <div class="page-title">
+        <h2>Payment Options</h2>
+        <p>Choose how you'd like to pay your monthly dues. Your application will be reviewed once you confirm.</p>
+    </div>
+
+    <div class="form-box card">
+        <h3>Loan Summary</h3>
+        <div id="summary"></div>
+
+        <h3 style="margin-top:30px">How would you like to pay?</h3>
+        <form id="pay-form">
+            <label class="opt"><input type="radio" name="method" value="GCash" required> GCash</label>
+            <label class="opt"><input type="radio" name="method" value="Maya"> Maya</label>
+            <label class="opt"><input type="radio" name="method" value="Bank Transfer"> Bank Transfer</label>
+            <label class="opt"><input type="radio" name="method" value="Over-the-Counter"> Over-the-Counter (7-Eleven, Bayad Center)</label>
+            <button type="submit" class="btn">Confirm &amp; Submit Application</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>
+            <a href="Final_Main_page.html">Home</a>
+            <a href="About.html">About Us</a>
+            <a href="Contact.html">Contact Us</a>
+        </p>
+        <p>Email: support@evergreencredit.com | Phone: (02) 1234-5678</p>
+        <p>&copy; 2026 Evergreen Credit. All rights reserved.</p>
+    </footer>
+
+<script>
+        const $ = id => document.getElementById(id);
+        $('fname').value = user.first; $('lname').value = user.last;
+        $('email').value = user.email; $('phone').value = user.phone;
+        $('apply-form').onsubmit = e => {
+            e.preventDefault();
+            const type = $('loantype').value, amount = +$('amount').value, term = +$('term').value;
+            DB.set('application', {
+                type, amount, term, rate: RATES[type], purpose: $('purpose').value,
+                monthly: monthly(amount, RATES[type], term), appliedAt: new Date().toISOString(),
+                method: null, paid: 0, payments: []
+            });
+            location.href = 'Payment.html';
+        };
+    </script>
+</body>
+<script>
+    const apps = getApps(), a = apps.find(x => x.id === new URLSearchParams(location.search).get('id'));
+    if (!a || a.method) location.replace('Account.html');
+    else {
+        const rows = [['Loan type', a.type[0].toUpperCase() + a.type.slice(1) + ' Loan'], ['Amount', peso(a.amount)],
+            ['Interest rate', a.rate + '% per month'], ['Term', a.term + ' months'], ['Monthly payment', peso(a.monthly)]];
+        document.getElementById('summary').innerHTML = rows.map(r => `<div class="sum"><span>${r[0]}</span><b>${r[1]}</b></div>`).join('');
+        document.getElementById('pay-form').onsubmit = e => {
+            e.preventDefault();
+            a.method = new FormData(e.target).get('method');
+            a.submittedAt = Date.now();
+            saveApps(apps);
+            location.href = 'Account.html';
+        };
+    }
+</script>
+</html>

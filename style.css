@@ -1,0 +1,259 @@
+/* ======================================
+   Shared styles for all pages
+   ====================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(245, 245, 245);
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #088842;
+    padding: 40px;
+    margin: 0px;
+    border: 0px;
+}
+
+h1 {
+    font-size: 34px;
+    color: #d7dbe0;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    margin: 0;
+}
+
+/* ---------- Nav ---------- */
+nav {
+    position: relative;
+    background-color: #0eb85a;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+nav a {
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    padding: 25px;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+nav a:hover {
+    background-color: #0b9347;
+}
+
+/* shows which page you're on */
+nav a.active {
+    background-color: #088842;
+}
+
+nav .nav-right {
+    position: absolute;
+    right: 40px;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #2e7d32;
+    border-radius: 4px;
+    border: 2px solid black;
+    font-weight: bold;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.15s ease;
+}
+
+nav .nav-right:hover,
+nav .nav-right.active {
+    background-color: #2e7d32;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: #088842;
+    color: white;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    border: 2px solid #088842;
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.15s ease;
+}
+
+.btn:hover {
+    background-color: white;
+    color: #088842;
+    transform: translateY(-2px);
+}
+
+/* ---------- Page titles ---------- */
+.page-title {
+    text-align: center;
+    padding: 50px 20px 20px 20px;
+}
+
+.page-title h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 34px;
+    color: #088842;
+    margin-bottom: 5px;
+}
+
+.page-title p {
+    font-size: 17px;
+    color: #555;
+}
+
+.section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    color: #088842;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+/* ---------- White card box (used on most pages) ---------- */
+.card {
+    background-color: white;
+    border: 2px solid #0eb85a;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.card h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: #088842;
+    margin-top: 0;
+}
+
+/* ---------- Forms ---------- */
+.form-box {
+    width: 600px;
+    margin: 0 auto 60px auto;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.25s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #0eb85a;
+    outline: none;
+}
+
+textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+.checkbox {
+    margin-top: 20px;
+}
+
+.checkbox input {
+    width: auto;
+    margin-right: 8px;
+}
+
+.checkbox label {
+    display: inline;
+    font-weight: normal;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row div {
+    flex: 1;
+}
+
+form .btn {
+    margin-top: 25px;
+    width: 100%;
+}
+
+/* ---------- Tables ---------- */
+table {
+    width: 900px;
+    margin: 0 auto 40px auto;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+th {
+    background-color: #088842;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    padding: 15px;
+    text-align: left;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+    background-color: #eaf7ef;
+}
+
+tr:hover td {
+    background-color: lightgreen;
+}
+
+/* ---------- Footer ---------- */
+footer {
+    background-color: #088842;
+    color: #d7dbe0;
+    text-align: center;
+    padding: 30px;
+    margin-top: 40px;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+footer p {
+    margin: 8px 0;
+    font-size: 14px;
+}

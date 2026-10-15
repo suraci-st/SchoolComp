@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Activity Compilation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Public+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="compilation.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <a class="brand" href="#home">Gian Carlo Mateo</a>
+        <nav class="site-nav" aria-label="Main">
+            <a href="#home">Home</a>
+            <a href="#activities">Activities</a>
+            <a href="#about">About</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="hero" id="home">
+            <div class="hero-text">
+                <h1>Student Activity Compilation</h1>
+                <p class="hero-sub">Three web projects built with HTML and CSS: a personal portfolio, a budgeting app
+                    marketplace, and a loan website that adapts from phone to desktop.</p>
+                <a class="button" href="#activities">Explore Activities</a>
+            </div>
+
+            <table class="ledger">
+                <caption>What is inside</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Activity</th>
+                        <th scope="col">Project</th>
+                        <th scope="col">Skill practiced</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Personal Portfolio</td>
+                        <td>Page structure and typography</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>BudgetPH Marketplace</td>
+                        <td>Product pages and navigation</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Evergreen Credit</td>
+                        <td>Responsive layout</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="activities" id="activities">
+            <h2>Featured activities</h2>
+
+            <div class="card-grid">
+
+                <article class="project-card card-portfolio">
+                    <div class="card-placeholder">Personal Portfolio</div>
+                    <div class="card-body">
+                        <h3>Personal Portfolio</h3>
+                        <p>An introduction to who I am, with my skills, projects, achievements and a contact form.</p>
+                        <p class="tech"><strong>Technologies:</strong> HTML5, CSS3, Google Fonts</p>
+                        <a class="button button-small" href="PortfolioAct.html">View Project</a>
+                    </div>
+                </article>
+
+                <article class="project-card card-market">
+                    <div class="card-placeholder">BudgetPH Marketplace</div>
+                    <div class="card-body">
+                        <h3>BudgetPH Marketplace</h3>
+                        <p>Product pages for a budgeting app made for Filipinos in their 30s who want to track spending
+                            and save.</p>
+                        <p class="tech"><strong>Technologies:</strong> HTML5, CSS3</p>
+                        <a class="button button-small" href="ProductIndex.html">View Project</a>
+                    </div>
+                </article>
+
+                <article class="project-card card-responsive">
+                    <div class="card-placeholder">Evergreen Credit</div>
+                    <div class="card-body">
+                        <h3>Evergreen Credit (Responsive)</h3>
+                        <p>A loan website with application, payment and account pages that rearranges itself on
+                            mobile, tablet and desktop screens.</p>
+                        <p class="tech"><strong>Technologies:</strong> HTML5, CSS3, Flexbox, Grid, media queries,
+                            JavaScript</p>
+                        <a class="button button-small" href="Final_Main_page.html">View Project</a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="about" id="about">
+            <h2>About</h2>
+            <div class="about-copy">
+                <p>I am Gian Carlo R. Mateo, a Financial Technology student at Mapúa Makati University. I enjoy the
+                    business side of my course, and I want to understand the technology behind it too.</p>
+                <p>Through these activities I learned to structure pages with semantic HTML5, keep styling in separate
+                    CSS files, lay content out with Flexbox and Grid, and use media queries so a page stays readable
+                    and usable on any screen size.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <p><strong>Gian Carlo R. Mateo</strong></p>
+        <p>BS Financial Technology | Section: [YOUR SECTION] | Academic Year: [YOUR ACADEMIC YEAR]</p>
+        <p>Mapúa Makati University</p>
+    </footer>
+
+</body>
+
+</html>

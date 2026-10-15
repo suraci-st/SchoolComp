@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login / Sign-up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+
+    <style>
+        .login-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 430px);
+            justify-content: center;
+            align-items: start;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .small-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #088842;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Evergreen Credit</h1>
+    </header>
+
+    <div class="box">
+        <nav>
+            <a href="Final_Main_page.html">Home</a>
+            <a href="Application.html">Apply for a Loan</a>
+            <a href="Account.html">My Account</a>
+            <a href="Table.html">Loan options</a>
+            <a href="Contact.html">Contact Us</a>
+            <a href="About.html">About Us</a>
+            <a href="Login.html" class="nav-right active">Login/Sign-up</a>
+        </nav>
+    </div>
+
+    <div class="page-title">
+        <h2>Welcome!</h2>
+        <p>Log in to your account or create a new one.</p>
+    </div>
+
+    <div style="text-align:center; margin-bottom:20px;">
+        <button onclick="loginDemo()"
+            style="padding:11px 30px; background:#088842; color:white; border:2px solid #088842; border-radius:4px; font-family:'Montserrat',sans-serif; font-size:15px; font-weight:bold; cursor:pointer; transition:background 0.2s,transform 0.15s;"
+            onmouseover="this.style.background='white';this.style.color='#088842'"
+            onmouseout="this.style.background='#088842';this.style.color='white'">✦ Try with Demo Account</button>
+        <p style="margin:8px 0 0; color:#888; font-size:13px;">Instantly log in with sample data &mdash; no sign-up
+            needed.</p>
+    </div>
+
+    <div class="login-grid">
+
+        <div class="card">
+            <h3>Login</h3>
+            <form id="login-form">
+                <label for="login-email">Email Address</label>
+                <input type="email" id="login-email" name="email" required>
+
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" name="password" required>
+
+                <div class="checkbox">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+
+                <p id="login-msg" style="color:#c0392b;margin:15px 0 0"></p>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <a href="#" class="small-link">Forgot your password?</a>
+        </div>
+
+        <div class="card">
+            <h3>Sign Up</h3>
+            <form id="signup-form">
+                <div class="form-row">
+                    <div>
+                        <label for="first">First Name</label>
+                        <input type="text" id="first" name="first" required>
+                    </div>
+                    <div>
+                        <label for="last">Last Name</label>
+                        <input type="text" id="last" name="last" required>
+                    </div>
+                </div>
+
+                <label for="signup-email">Email Address</label>
+                <input type="email" id="signup-email" name="email" required>
+
+                <label for="signup-phone">Phone Number</label>
+                <input type="tel" id="signup-phone" name="phone" placeholder="09XX XXX XXXX" required>
+
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" name="password" minlength="8" required>
+
+                <label for="confirm">Confirm Password</label>
+                <input type="password" id="confirm" name="confirm" minlength="8" required>
+
+                <div class="checkbox">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">I agree to the terms and conditions.</label>
+                </div>
+
+                <p id="signup-msg" style="color:#c0392b;margin:15px 0 0"></p>
+                <button type="submit" class="btn">Create Account</button>
+            </form>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>
+            <a href="Final_Main_page.html">Home</a>
+            <a href="About.html">About Us</a>
+            <a href="Contact.html">Contact Us</a>
+        </p>
+        <p>Email: support@evergreencredit.com | Phone: (02) 1234-5678</p>
+        <p>&copy; 2026 Evergreen Credit. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const need = new URLSearchParams(location.search).get('need');
+        if (need) {
+            const n = document.createElement('p');
+            n.style.cssText = 'color:#d98c00;font-weight:bold';
+            n.textContent = need === 'signup' ? 'Please sign up for an account first to access this page.' : 'Please log in to continue.';
+            document.querySelector('.page-title').appendChild(n);
+        }
+        const $ = id => document.getElementById(id);
+        $('login-form').onsubmit = e => {
+            e.preventDefault();
+            if (!user) { $('login-msg').textContent = 'No account found. Please sign up first.'; return; }
+            if (user.email !== $('login-email').value.trim().toLowerCase() || user.password !== $('login-password').value) {
+                $('login-msg').textContent = 'Incorrect email or password.'; return;
+            }
+            localStorage.setItem('loggedIn', '1');
+            location.href = 'Account.html';
+        };
+        $('signup-form').onsubmit = e => {
+            e.preventDefault();
+            if ($('signup-password').value !== $('confirm').value) { $('signup-msg').textContent = 'Passwords do not match.'; return; }
+            DB.set('user', {
+                first: $('first').value.trim(), last: $('last').value.trim(),
+                email: $('signup-email').value.trim().toLowerCase(), phone: $('signup-phone').value.trim(),
+                password: $('signup-password').value, since: new Date().toISOString()
+            });
+            localStorage.setItem('loggedIn', '1');
+            location.href = 'Application.html';   // new accounts go straight to applying
+        };
+
+        function loginDemo() {
+            DB.set('user', {
+                first: 'Juan', last: 'dela Cruz',
+                email: 'juan.delacruz@email.com', phone: '09171234567',
+                password: 'demo1234', since: new Date().toISOString()
+            });
+            localStorage.setItem('loggedIn', '1');
+            location.href = 'Application.html';
+        }
+    </script>
+</body>
+
+</html>

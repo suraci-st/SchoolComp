@@ -1,0 +1,70 @@
+/* ======================================
+   Activity 3: Responsive layer for Evergreen Credit
+   Loaded AFTER style.css and each page's own <style>,
+   so these rules override the fixed pixel widths.
+   Breakpoints: tablet <= 1000px, mobile <= 640px
+   ====================================== */
+
+img { max-width: 100%; height: auto; }
+
+/* ---------- Tablet ---------- */
+@media (max-width: 1000px) {
+    nav { flex-wrap: wrap; }
+    nav a { padding: 18px 16px; font-size: 16px; }
+    nav .nav-right { position: static; margin: 8px 12px; }
+
+    .form-box { width: calc(100% - 40px); max-width: 600px; }
+    table { width: calc(100% - 40px); max-width: 900px; }
+    .note, .about-text { width: calc(100% - 40px); max-width: 900px; }
+
+    .container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: none;
+        width: calc(100% - 40px);
+        max-width: 930px;
+    }
+    .square { width: auto; height: auto; min-height: 230px; }
+
+    .steps { flex-wrap: wrap; }
+    .mission, .team { flex-wrap: wrap; padding: 0 20px; }
+    .mission .card { width: auto; flex: 1 1 300px; }
+    .member { flex: 1 1 180px; width: auto; max-width: 240px; }
+
+    .contact-grid,
+    .login-grid,
+    .account-grid {
+        grid-template-columns: minmax(0, 1fr);
+        width: calc(100% - 40px);
+        max-width: 620px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 640px) {
+    header { padding: 24px 16px; }
+    h1 { font-size: 26px; }
+
+    nav a { padding: 12px 10px; font-size: 14px; }
+
+    .page-title { padding: 32px 16px 12px; }
+    .page-title h2, .welcome h2 { font-size: 26px; }
+    .welcome { padding: 40px 16px 30px; }
+    .section-title { font-size: 22px; margin: 30px 16px 20px; }
+
+    .card { padding: 20px; }
+    .form-row { flex-direction: column; gap: 0; }
+
+    .container { grid-template-columns: minmax(0, 1fr); }
+    .square { min-height: 0; padding-bottom: 20px; }
+    .steps { flex-direction: column; align-items: center; }
+    .step { width: 100%; max-width: 340px; }
+
+    /* wide tables scroll inside themselves, never the page */
+    table { display: block; overflow-x: auto; }
+    th, td { padding: 10px; font-size: 14px; white-space: nowrap; }
+
+    .loan-info { flex-wrap: wrap; gap: 12px; }
+    footer a { display: inline-block; margin: 4px 8px; }
+}

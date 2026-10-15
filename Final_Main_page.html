@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+
+    <style>
+        /* ---------- Styles only for the home page ---------- */
+        .welcome {
+            text-align: center;
+            padding: 70px 20px 50px 20px;
+        }
+
+        .welcome h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 36px;
+            color: #088842;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .square {
+            width: 400px;
+            height: 250px;
+            background-color: lightgreen;
+            border: 2px solid darkgreen;
+            border-radius: 20px;
+            padding: 15px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            transition: transform 0.2s ease;
+        }
+
+        .square:hover {
+            transform: translateY(-5px);
+        }
+
+        .square h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            color: darkgreen;
+            margin-top: 15px;
+        }
+
+        .square p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .square a {
+            padding: 8px 18px;
+            background-color: white;
+            color: darkgreen;
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid darkgreen;
+            border-radius: 4px;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        .square a:hover {
+            background-color: darkgreen;
+            color: white;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 450px);
+            grid-template-rows: repeat(2, 250px);
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin: 0 auto 60px auto;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 0 auto 60px auto;
+            padding: 0 20px;
+        }
+
+        .step {
+            width: 250px;
+            background-color: white;
+            border: 2px solid #0eb85a;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .step .number {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            margin: 0 auto;
+            background-color: #0eb85a;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 50%;
+        }
+
+        .step h4 {
+            font-family: 'Montserrat', sans-serif;
+            color: #088842;
+            font-size: 18px;
+        }
+
+        .step p {
+            color: #555;
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Evergreen Credit</h1>
+    </header>
+
+    <div class="box">
+        <nav>
+            <a href="index.html">&#8592; Compilation</a>
+            <a href="Final_Main_page.html" class="active">Home</a>
+            <a href="Application.html">Apply for a Loan</a>
+            <a href="Account.html">My Account</a>
+            <a href="Table.html">Loan options</a>
+            <a href="Contact.html">Contact Us</a>
+            <a href="About.html">About Us</a>
+            <a href="Login.html" class="nav-right">Login/Sign-up</a>
+        </nav>
+    </div>
+
+        <div class="welcome">
+        <h2>Loans Made Simple</h2>
+        <p>Fast, friendly, and transparent loans to help you reach your goals.</p>
+        <a href="Application.html" class="btn">Apply Now</a>
+    </div>
+
+        <h2 class="section-title">Why Choose Us?</h2>
+
+    <div class="container">
+        <div class="square">
+            <h3>Fast Approval</h3>
+            <p>Get a decision on your loan application in as little as 24 hours.</p>
+            <a href="Application.html">Apply Now</a>
+        </div>
+        <div class="square">
+            <h3>Low Interest Rates</h3>
+            <p>Competitive rates that make your monthly payments easier to manage.</p>
+            <a href="Table.html">See Rates</a>
+        </div>
+        <div class="square">
+            <h3>Flexible Terms</h3>
+            <p>Choose a payment plan from 6 to 36 months that fits your budget.</p>
+            <a href="Table.html">Loan Options</a>
+        </div>
+        <div class="square">
+            <h3>Safe and Secure</h3>
+            <p>Your personal information is protected every step of the way.</p>
+            <a href="About.html">Learn More</a>
+        </div>
+    </div>
+
+        <h2 class="section-title" style="margin-top: 70px;">How It Works</h2>
+
+    <div class="steps">
+        <div class="step">
+            <div class="number">1</div>
+            <h4>Sign Up</h4>
+            <p>Create your free account in just a few minutes.</p>
+        </div>
+        <div class="step">
+            <div class="number">2</div>
+            <h4>Apply</h4>
+            <p>Fill out our simple loan application form online.</p>
+        </div>
+        <div class="step">
+            <div class="number">3</div>
+            <h4>Get Approved</h4>
+            <p>Receive your funds once your application is approved.</p>
+        </div>
+    </div>
+
+        <footer>
+        <p>
+            <a href="Final_Main_page.html">Home</a>
+            <a href="About.html">About Us</a>
+            <a href="Contact.html">Contact Us</a>
+        </p>
+        <p>Email: support@evergreencredit.com | Phone: (02) 1234-5678</p>
+        <p>&copy; 2026 Evergreen Credit. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>
